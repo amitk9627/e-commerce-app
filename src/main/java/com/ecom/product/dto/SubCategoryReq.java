@@ -1,8 +1,7 @@
 package com.ecom.product.dto;
 
-public class SubCategoryRequest {
+public class SubCategoryReq {
     private String subCategoryName;
-    private boolean isActive;
     private Long categoryId;
 
     // Getters & Setters
@@ -11,13 +10,6 @@ public class SubCategoryRequest {
     }
     public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public Long getCategoryId() {

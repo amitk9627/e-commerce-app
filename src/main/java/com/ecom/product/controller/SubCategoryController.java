@@ -1,9 +1,9 @@
 package com.ecom.product.controller;
 
-import com.ecom.product.dto.SubCategoryRequest;
+import com.ecom.product.dto.SubCategoryProjection;
+import com.ecom.product.dto.SubCategoryReq;
+import com.ecom.product.dto.SubCategoryRes;
 import com.ecom.product.model.SubCategory;
-import com.ecom.product.repository.CategoryRepository;
-import com.ecom.product.repository.SubCategoryRepository;
 import com.ecom.product.service.CategoryService;
 import com.ecom.product.service.SubCategoryService;
 import com.ecom.response.ApiResponse;
@@ -22,7 +22,7 @@ public class SubCategoryController {
     private SubCategoryService subCategoryService;
 
     @PostMapping("/addSubCategory")
-    public ResponseEntity<ApiResponse<SubCategory>> addSubCategory(@RequestBody SubCategoryRequest request) {
+    public ResponseEntity<ApiResponse<SubCategory>> addSubCategory(@RequestBody SubCategory request) {
         ApiResponse apiResponse = new ApiResponse();
         try{
             System.out.println(request.getSubCategoryName());
@@ -34,23 +34,23 @@ public class SubCategoryController {
             return ResponseEntity.ok().body(apiResponse);
         }catch(Exception e){
             apiResponse.setStatus(false);
-            apiResponse.setMessage("Not Found");
+            apiResponse.setMessage("Not Found "+e.getMessage());
             return ResponseEntity.badRequest().body(apiResponse);
         }
     }
     @GetMapping("/getAllSubCategory")
     public ResponseEntity<ApiResponse<List<SubCategory>>> getAllSubCategories() {
-
         ApiResponse apiResponse = new ApiResponse();
         try {
-            List<SubCategory> subCategoryList=subCategoryService.getAllSubCategories();
+            List<SubCategoryProjection> subCategoryList=subCategoryService.getAllSubCategories();
+//            System.out.println(subCategoryList.size()+" response");
             apiResponse.setStatus(true);
             apiResponse.setMessage("Success");
             apiResponse.setResult(subCategoryList);
             return ResponseEntity.ok().body(apiResponse);
         }catch(Exception e){
             apiResponse.setStatus(false);
-            apiResponse.setMessage("Not Found");
+            apiResponse.setMessage("Not Found "+e.getMessage());
             return ResponseEntity.badRequest().body(apiResponse);
         }
     }

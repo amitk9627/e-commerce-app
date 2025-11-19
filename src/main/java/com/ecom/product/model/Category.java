@@ -1,8 +1,8 @@
 package com.ecom.product.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "categories")
@@ -21,6 +21,10 @@ public class Category {
     private Date updateAt;
     private boolean isActive= true;;
     private String role;
+    // ✅ Add one-to-many relationship
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore  // prevent infinite recursion
+    private Set<SubCategory> subCategories = new HashSet<>();
 
     public Category() {}
 
@@ -80,6 +84,8 @@ public class Category {
     public void setRole(String role) {
         this.role = role;
     }
+    public Set<SubCategory> getSubCategories() { return subCategories; }
+    public void setSubCategories(Set<SubCategory> subCategories) { this.subCategories = subCategories; }
 
     // Automatically set timestamps
     @PrePersist

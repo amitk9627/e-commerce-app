@@ -1,5 +1,6 @@
 package com.ecom.product.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,10 +11,10 @@ public class SubCategory {
     private Long subCategoryId;
     @Column(unique = true, nullable = false)
     private String subCategoryName;
-    private boolean isActive;
-    // Many subcategories belong to one category
+    private boolean isActive=true;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)  // FK in this table
+    @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnoreProperties({"subCategories"}) // prevents recursion or lazy errors
     private Category category;
     @Transient
     private Long categoryId;
@@ -33,6 +34,11 @@ public class SubCategory {
 
     public void setSubCategoryId(Long subCategoryId) {
         this.subCategoryId = subCategoryId;
+    }
+
+    // ✅ Automatically expose categoryId in JSON
+    public Long getCategoryId() {
+        return category != null ? category.getCategoryId() : categoryId;
     }
 
     public String getSubCategoryName() {

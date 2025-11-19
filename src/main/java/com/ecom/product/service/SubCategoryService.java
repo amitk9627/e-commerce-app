@@ -1,13 +1,13 @@
 package com.ecom.product.service;
 
-import com.ecom.product.dto.SubCategoryRequest;
+import com.ecom.product.dto.SubCategoryProjection;
+import com.ecom.product.dto.SubCategoryReq;
 import com.ecom.product.model.Category;
 import com.ecom.product.model.SubCategory;
 import com.ecom.product.repository.CategoryRepository;
 import com.ecom.product.repository.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class SubCategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public SubCategory createSubCategory(SubCategoryRequest request) {
+    public SubCategory createSubCategory(SubCategory request) {
         if (subCategoryRepository.existsBySubCategoryName(request.getSubCategoryName())) {
             throw new RuntimeException("Category name already exists!");
         }
@@ -29,12 +29,11 @@ public class SubCategoryService {
         // Create new subcategory
         SubCategory subCategory = new SubCategory();
         subCategory.setSubCategoryName(request.getSubCategoryName());
-        subCategory.setActive(request.isActive());
         subCategory.setCategory(category);
         return subCategoryRepository.save(subCategory);
     }
-    public List<SubCategory> getAllSubCategories() {
-        return subCategoryRepository.findAll();
+    public List<SubCategoryProjection> getAllSubCategories() {
+        return subCategoryRepository.findAllSubCategoryCustom();
     }
     public SubCategory getSubCategoryById(Long id) {
         return subCategoryRepository.getReferenceById(id);
