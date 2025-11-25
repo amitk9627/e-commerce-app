@@ -1,6 +1,6 @@
 package com.ecom.product.repository;
 
-import com.ecom.product.dto.SubCategoryProjection;
+import com.ecom.product.dto.*;
 import com.ecom.product.model.SubCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +16,12 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
             "s.category.categoryId AS categoryId, " +
             "s.isActive AS isActive " +
             "FROM SubCategory s")
-    List<SubCategoryProjection> findAllSubCategoryCustom();
+    List<Projections.SubCategoryProjection> findAllSubCategoryCustom();
+
+    @Query("SELECT s.subCategoryId AS subCategoryId, " +
+            "s.subCategoryName AS subCategoryName, " +
+            "s.isActive AS isActive " +
+            "FROM SubCategory s " +
+            "WHERE s.category.categoryId = :categoryId")
     List<SubCategory> findByCategory_CategoryId(Long categoryId);
 }

@@ -1,6 +1,6 @@
 package com.ecom.product.service;
 
-import com.ecom.product.dto.SubCategoryProjection;
+import com.ecom.product.dto.Projections;
 import com.ecom.product.dto.SubCategoryReq;
 import com.ecom.product.model.Category;
 import com.ecom.product.model.SubCategory;
@@ -32,7 +32,7 @@ public class SubCategoryService {
         subCategory.setCategory(category);
         return subCategoryRepository.save(subCategory);
     }
-    public List<SubCategoryProjection> getAllSubCategories() {
+    public List<Projections.SubCategoryProjection> getAllSubCategories() {
         return subCategoryRepository.findAllSubCategoryCustom();
     }
     public SubCategory getSubCategoryById(Long id) {

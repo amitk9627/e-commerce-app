@@ -1,7 +1,10 @@
 package com.ecom.product.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "subCategories")
@@ -12,12 +15,17 @@ public class SubCategory {
     @Column(unique = true, nullable = false)
     private String subCategoryName;
     private boolean isActive=true;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
-    @JsonIgnoreProperties({"subCategories"}) // prevents recursion or lazy errors
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "category_id", nullable = false,  referencedColumnName = "categoryId")
     private Category category;
     @Transient
     private Long categoryId;
+    //  product
+    @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore  // prevent infinite recursion
+    private List<Product> products;
 
     public SubCategory() {}
 

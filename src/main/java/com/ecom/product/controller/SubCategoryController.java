@@ -1,6 +1,6 @@
 package com.ecom.product.controller;
 
-import com.ecom.product.dto.SubCategoryProjection;
+import com.ecom.product.dto.Projections;
 import com.ecom.product.dto.SubCategoryReq;
 import com.ecom.product.dto.SubCategoryRes;
 import com.ecom.product.model.SubCategory;
@@ -42,7 +42,7 @@ public class SubCategoryController {
     public ResponseEntity<ApiResponse<List<SubCategory>>> getAllSubCategories() {
         ApiResponse apiResponse = new ApiResponse();
         try {
-            List<SubCategoryProjection> subCategoryList=subCategoryService.getAllSubCategories();
+            List<Projections.SubCategoryProjection> subCategoryList=subCategoryService.getAllSubCategories();
 //            System.out.println(subCategoryList.size()+" response");
             apiResponse.setStatus(true);
             apiResponse.setMessage("Success");
@@ -59,6 +59,12 @@ public class SubCategoryController {
         ApiResponse response = new ApiResponse();
         try{
             List<SubCategory> subCategory = subCategoryService.getAllSubCategoriesByCategoryId(categoryId);
+            System.out.println("category_id : "+subCategory.size());
+            if (subCategory.isEmpty()) {
+                response.setStatus(false);
+                response.setMessage("No SubCategory found for this Category ID");
+                return ResponseEntity.status(404).body(response);
+            }
             response.setStatus(true);
             response.setMessage("Success");
             response.setResult(subCategory);

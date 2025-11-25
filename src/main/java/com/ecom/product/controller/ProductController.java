@@ -1,4 +1,60 @@
 package com.ecom.product.controller;
 
+import com.ecom.product.dto.Projections;
+import com.ecom.product.model.Product;
+import com.ecom.product.service.ProductService;
+import com.ecom.response.ApiResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/product")
 public class ProductController {
+    @Autowired
+    ProductService productService;
+
+    @PostMapping("/createProduct")
+    public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody Product product){
+        System.out.println("product calling"+ product.toString());
+        ApiResponse<Product> apiResponse = new ApiResponse<>();
+        try{
+            Product products = productService.createProduct(product);
+            if(products == null){
+                apiResponse.setMessage("product not saved");
+                apiResponse.setStatus(false);
+            }
+            apiResponse.setMessage("Product Added Successfully");
+            apiResponse.setStatus(true);
+            apiResponse.setResult(products);
+            return ResponseEntity.ok().body(apiResponse);
+        }catch(Exception error){
+            apiResponse.setMessage(error.getMessage());
+            apiResponse.setStatus(false);
+            return ResponseEntity.internalServerError().body(apiResponse);
+        }
+    }
+    @GetMapping("/getAllProduct")
+    public ResponseEntity<ApiResponse<List<Projections.ProductProjection>>> getAllProduct() {
+        ApiResponse<List<Projections.ProductProjection>> apiResponse = new ApiResponse<>();
+        try{
+            List<Projections.ProductProjection> products = productService.getAllProducts();
+            System.out.println(products.size()+" list of product");
+            if(products.isEmpty()){
+                apiResponse.setMessage("No product Found!");
+                apiResponse.setStatus(false);
+            }
+            apiResponse.setMessage("List Found Successfully");
+            apiResponse.setStatus(true);
+            apiResponse.setResult(products);
+            return ResponseEntity.ok().body(apiResponse);
+        }catch(Exception error){
+            apiResponse.setMessage(error.getMessage());
+            apiResponse.setStatus(false);
+            return ResponseEntity.internalServerError().body(apiResponse);
+        }
+    }
+
 }

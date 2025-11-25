@@ -24,7 +24,12 @@ public class Category {
     // ✅ Add one-to-many relationship
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore  // prevent infinite recursion
-    private Set<SubCategory> subCategories = new HashSet<>();
+    private List<SubCategory> subCategories;
+
+    //  product
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore  // prevent infinite recursion
+    private List<Product> products;
 
     public Category() {}
 
@@ -84,8 +89,8 @@ public class Category {
     public void setRole(String role) {
         this.role = role;
     }
-    public Set<SubCategory> getSubCategories() { return subCategories; }
-    public void setSubCategories(Set<SubCategory> subCategories) { this.subCategories = subCategories; }
+    public List<SubCategory> getSubCategories() { return subCategories; }
+    public void setSubCategories(List<SubCategory> subCategories) { this.subCategories = subCategories; }
 
     // Automatically set timestamps
     @PrePersist
