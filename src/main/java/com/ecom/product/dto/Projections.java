@@ -32,4 +32,16 @@ public class Projections {
         Boolean getIsActive();
 
     }
+    public interface SingleProduct {
+        Long getProductId();
+        String getProductName();
+        BigDecimal getProductPrice();
+        String getProductDescription();
+        String getProductImage();
+        Boolean getIsActive();
+        Long getCategoryId();
+        String getCategoryName();
+        Long getSubCategoryId();
+        String getSubCategoryName();
+    }
 }

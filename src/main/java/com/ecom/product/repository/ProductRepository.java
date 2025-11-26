@@ -27,4 +27,23 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "LEFT JOIN p.category c " +
             "LEFT JOIN p.subCategory sb")
     List<Projections.ProductProjection> findAllWithCategoryAndSubCategory();
+
+    @Query("SELECT " +
+            "p.productId AS productId, " +
+            "p.productName AS productName, " +
+            "p.productPrice AS productPrice, " +
+            "p.productDescription AS productDescription, " +
+            "p.productImage AS productImage, " +
+            "p.isActive AS isActive, " +
+            "c.categoryId AS categoryId, " +
+            "c.categoryName AS categoryName, " +
+            "sb.subCategoryId AS subCategoryId, " +
+            "sb.subCategoryName AS subCategoryName " +
+            "FROM Product p " +
+            "LEFT JOIN p.category c " +
+            "LEFT JOIN p.subCategory sb " +
+            "WHERE p.productId = :productId")
+    Projections.SingleProduct getProductById(Long productId);
+
+
 }

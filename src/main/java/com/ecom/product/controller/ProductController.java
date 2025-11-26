@@ -56,5 +56,24 @@ public class ProductController {
             return ResponseEntity.internalServerError().body(apiResponse);
         }
     }
+    @GetMapping("/getProduct/{id}")
+    public ResponseEntity<ApiResponse<Projections.SingleProduct>> getProduct(@PathVariable("id") Long id) {
+        ApiResponse<Projections.SingleProduct> apiResponse = new ApiResponse<>();
+        try{
+            Projections.SingleProduct product =  productService.getProductByID(id);
+            if(product==null){
+                apiResponse.setMessage("No product Found!");
+                apiResponse.setStatus(false);
+            }
+            apiResponse.setMessage("List Found Successfully");
+            apiResponse.setStatus(true);
+            apiResponse.setResult(product);
+            return ResponseEntity.ok().body(apiResponse);
+        }catch(Exception error){
+            apiResponse.setMessage(error.getMessage());
+            apiResponse.setStatus(false);
+            return ResponseEntity.internalServerError().body(apiResponse);
+        }
+    }
 
 }

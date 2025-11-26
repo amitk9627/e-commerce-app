@@ -37,7 +37,7 @@ public class ProductService {
     public List<Projections.ProductProjection> getAllProducts() {
         return productRepository.findAllWithCategoryAndSubCategory();
     }
-    public List<Projections.ProductProjection> getAllProductByID(Long id) {
-        return productRepository.findAllById(id);
+    public Projections.SingleProduct getProductByID(Long id) {
+        return productRepository.getProductById(id);
     }
 }
