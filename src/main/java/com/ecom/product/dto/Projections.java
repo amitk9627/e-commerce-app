@@ -22,15 +22,16 @@ public class Projections {
     public interface ProductProjection {
         Long getProductId();
         String getProductName();
+        BigDecimal getProductPrice();
         String getProductDescription();
         String getProductImage();
-        BigDecimal getProductPrice(); // Add this since it's selected
+        Boolean getIsActive();
         Long getCategoryId();
         String getCategoryName();
         Long getSubCategoryId();
         String getSubCategoryName();
-        Boolean getIsActive();
-
+        Integer getAvailableStock();
+        Boolean getTopSales();
     }
     public interface SingleProduct {
         Long getProductId();
@@ -43,5 +44,12 @@ public class Projections {
         String getCategoryName();
         Long getSubCategoryId();
         String getSubCategoryName();
+        Integer getAvailableStock();
+        Boolean getTopSales();
+    }
+    public interface productInventory {
+        Long getProductId();
+
     }
 }
+

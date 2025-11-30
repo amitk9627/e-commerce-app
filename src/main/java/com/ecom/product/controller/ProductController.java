@@ -1,5 +1,6 @@
 package com.ecom.product.controller;
 
+import com.ecom.product.dto.ProductRequestDTO;
 import com.ecom.product.dto.Projections;
 import com.ecom.product.model.Product;
 import com.ecom.product.service.ProductService;
@@ -17,8 +18,7 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/createProduct")
-    public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody Product product){
-        System.out.println("product calling"+ product.toString());
+    public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody ProductRequestDTO product){
         ApiResponse<Product> apiResponse = new ApiResponse<>();
         try{
             Product products = productService.createProduct(product);
@@ -75,5 +75,6 @@ public class ProductController {
             return ResponseEntity.internalServerError().body(apiResponse);
         }
     }
+
 
 }

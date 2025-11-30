@@ -36,6 +36,7 @@ public class UserService {
 
         if (dbUser.isEmpty()) {
             throw new RuntimeException("User does not exist!");
+            
         }
 
         User user = dbUser.get();

@@ -42,6 +42,13 @@ public class Product {
     @Transient
     private Long subCategoryId;
 
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ProductInventory inventory;
+    @Transient
+    private Long inventoryId;
+
+//    ----------
+
     public Product() {}
 
     public Product(Long productId, String productName, String productDescription, String productImage, BigDecimal productPrice, Category category, SubCategory subCategory) {
