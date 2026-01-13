@@ -6,8 +6,6 @@ import com.ecom.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -36,7 +34,6 @@ public class UserService {
 
         if (dbUser.isEmpty()) {
             throw new RuntimeException("User does not exist!");
-            
         }
 
         User user = dbUser.get();
@@ -62,5 +59,10 @@ public class UserService {
         User user = dbUser.get();
         user.setToken(null); // clear the token
         userRepository.save(user);
+    }
+    public User findById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user;
     }
 }

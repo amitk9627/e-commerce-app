@@ -1,10 +1,11 @@
 package com.ecom.product.model;
 
 import jakarta.persistence.*;
-
+import lombok.Data;
 
 @Entity
 @Table(name="productInventory")
+@Data
 public class ProductInventory {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -34,29 +35,5 @@ public class ProductInventory {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Long getInventoryId() {
-        return inventoryId;
-    }
-
-    public void setInventoryId(Long inventoryId) {
-        this.inventoryId = inventoryId;
-    }
-
-    public int getAvailableStock() {
-        return availableStock;
-    }
-
-    public void setAvailableStock(int availableStock) {
-        this.availableStock = availableStock;
-    }
-
-    public int getReservedStock() {
-        return reservedStock;
-    }
-
-    public void setReservedStock(int reservedStock) {
-        this.reservedStock = reservedStock;
     }
 }

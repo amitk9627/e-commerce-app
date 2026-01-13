@@ -11,6 +11,6 @@ public class ProductRequestDTO {
     private BigDecimal productPrice;
     private Long categoryId;
     private Long subCategoryId;
-    private Integer availableStock; // 👈 Just one field
-
+    private Integer availableStock = 0; // 👈 Just one field
 }
+

@@ -18,10 +18,10 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/createProduct")
-    public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody ProductRequestDTO product){
-        ApiResponse<Product> apiResponse = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<ProductRequestDTO>> createProduct(@RequestBody ProductRequestDTO product){
+        ApiResponse<ProductRequestDTO> apiResponse = new ApiResponse<>();
         try{
-            Product products = productService.createProduct(product);
+            ProductRequestDTO products = productService.createProduct(product);
             if(products == null){
                 apiResponse.setMessage("product not saved");
                 apiResponse.setStatus(false);

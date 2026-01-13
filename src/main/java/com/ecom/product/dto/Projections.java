@@ -47,6 +47,7 @@ public class Projections {
         Integer getAvailableStock();
         Boolean getTopSales();
     }
+
     public interface productInventory {
         Long getProductId();
 
