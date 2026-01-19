@@ -64,7 +64,7 @@ public class Product {
     public Long getCategoryId() {
         return category != null ? category.getCategoryId() : categoryId;
     }
-    public Long getSubCategoryId() {
-        return subCategory !=null ?  subCategory.getSubCategoryId(): subCategoryId;
-    }
+//    public Long getSubCategoryId() {
+//        return subCategory !=null ?  subCategory.getSubCategoryId(): subCategoryId;
+//    }
 }
